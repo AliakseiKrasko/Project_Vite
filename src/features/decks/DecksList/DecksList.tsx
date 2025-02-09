@@ -6,16 +6,15 @@ import { AppDispatch, useAppDispatch, useAppSelector } from '../../../app/store.
 import { setDecksAC } from '../decks-reducer.ts'
 import { DeckItem } from './DeckItem/DeckItem.tsx'
 import { deckSelectors } from '../decks-selectors.ts'
+import { fetchDecksTC } from '../decks-thunks.ts'
 
 export const DecksList = () => {
   const dispatch = useAppDispatch()
   const decks = useSelector(deckSelectors)
 
   useEffect(() => {
-    decksAPI.fetchDecks().then((res) => {
-      dispatch(setDecksAC(res.data.items))
-    })
-  }, [])
+    dispatch(fetchDecksTC())
+  }, [dispatch])
   return (
     <ul className={s.list}>
       {decks.map((deck) => (
